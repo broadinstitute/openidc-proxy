@@ -1,0 +1,21 @@
+cakephp:
+  image: broadinstitute/openidc-proxy:latest
+  ports:
+    - "80:80"
+    - "443:443"
+  environment:
+    CALLBACK_PATH: /
+    CALLBACK_URI: https://test.example.org
+    CLIENTID: replacewithclientid
+    CLIENTSECRET: replacewithclientsecret
+    HTTPD_PORT: 80
+    LOG_LEVEL: warn
+    OIDC_CLAIM: Require claim hd:example.org
+    OIDC_COOKIE: prometheus_session
+    OIDC_SCOPES: openid email profile test
+    PROXY_PATH: /
+    PROXY_PATH2: /api
+    SERVER_ADMIN: webmaster@example.org
+    SERVER_NAME: test.example.org
+    SSL_HTTPD_PORT:
+  hostname: test.example.org
