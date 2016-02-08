@@ -102,3 +102,7 @@ fi
 if [ -z "$PROXY_URL3" ] ; then
     export PROXY_URL3=http://app:8080/register
 fi
+
+if [ "$ENABLE_STACKDRIVER" = "yes" ]; then
+    /usr/sbin/a2ensite stackdriver
+fi
