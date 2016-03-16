@@ -106,3 +106,18 @@ fi
 if [ "$ENABLE_STACKDRIVER" = "yes" ]; then
     /usr/sbin/a2ensite stackdriver
 fi
+
+# update FILTER
+if [ -z "$FILTER" ] ; then
+    export FILTER=
+fi
+
+# update FILTER2
+if [ -z "$FILTER2" ] ; then
+    export FILTER2=
+fi
+
+# update FILTER3
+if [ -z "$FILTER3" ] ; then
+    export FILTER3=
+fi
