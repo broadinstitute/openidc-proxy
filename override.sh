@@ -107,6 +107,12 @@ if [ "$ENABLE_STACKDRIVER" = "yes" ]; then
     /usr/sbin/a2ensite stackdriver
 fi
 
+if [ "$ENABLE_MODSECURITY" = "yes" ]; then
+    /usr/sbin/a2enmod security2
+    /usr/sbin/a2enmod unique_id
+fi
+
+
 # update FILTER
 if [ -z "$FILTER" ] ; then
     export FILTER=
