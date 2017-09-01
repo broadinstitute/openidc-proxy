@@ -116,6 +116,10 @@ if [ "$ENABLE_WEBSOCKET" = "yes" ]; then
     /usr/sbin/a2enmod proxy_wstunnel
 fi
 
+if [ "$ENABLE_REMOTEIP" = "yes" ]; then
+    /usr/sbin/a2enmod remoteip
+fi
+
 # update FILTER
 if [ -z "$FILTER" ] ; then
     export FILTER=
