@@ -4,6 +4,7 @@ ENV OWASP_VERSION=3.0.0
 
 RUN apt-get update && \
     apt-get install libapache2-mod-security2 -y && \
+    a2dismod security2 unique_id && \
     echo "Installing OWASP rules version  (${OWASP_VERSION})..." && \
     curl -L https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${OWASP_VERSION}.tar.gz -o /root/v${OWASP_VERSION}.tar.gz && \
     cd /root && \
