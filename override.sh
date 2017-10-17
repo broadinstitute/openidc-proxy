@@ -6,6 +6,17 @@
 # Note: This script will be executed *after* the main `run.sh` script, but
 # *before* Apache itself is run.
 
+# Instead setting values via environment variables you can put them in
+# the following file 
+
+# location of environment variable settings
+ENVFILE=${ENVFILE:-"/etc/apache2/env-override"}
+
+# If there is an override script, pull it in
+if [ -f "${ENVFILE}" ]; then
+    . $ENVFILE
+fi
+
 # set ALLOW_HEADERS3
 if [ -z "$ALLOW_HEADERS3" ] ; then
     export ALLOW_HEADERS3=
