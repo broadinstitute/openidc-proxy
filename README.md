@@ -22,7 +22,10 @@ This container images extends [OpenIDC BaseImage][1] and adds several features:
   * AUTH_LDAP_URL: The AuthLDAPURL to use for *PROXY_PATH*.  Default: None
   * AUTH_LDAP_URL2: The AuthLDAPURL to use for *PROXY_PATH2*.  Default: None
   * AUTH_LDAP_URL3: The AuthLDAPURL to use for *PROXY_PATH3*.  Default: None
-  * ENABLE_STACKDRIVER: Set to *yes* to enable Stackdriver Virtual Host. Default: None
+  * ENABLE_STACKDRIVER: Set to *yes* to enable Stackdriver Virtual Host. Default: Not set (so not enabled)
+  * ENABLE_WEBSOCKET: Set to *yes* to enable websocket/wstunnel module. Default: Not set (so not enabled)
+  * ENABLE_REMOTEIP: Set to *yes* to enable remoteip module. Default: Not set (so not enabled)
+  * ENABLE_MODSECURITY: Set to *yes* to enable Mod_security capability Virtual Host. Default: Not set (so not enabled)
   * LDAP_CACHE_TTL: The LDAP cache timeout.  Default: __60__
   * PROXY_PATH3: The Apache `Location` to configure with OAuth2.0 authentication, which will require a valid Google token to access.  Default: __/register__
 
