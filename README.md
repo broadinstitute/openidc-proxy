@@ -26,6 +26,12 @@ This container images extends [OpenIDC BaseImage][1] and adds several features:
   * ENABLE_WEBSOCKET: Set to *yes* to enable websocket/wstunnel module. Default: None
   * ENABLE_REMOTEIP: Set to *yes* to enable remoteip module. Default: None
   * ENABLE_MODSECURITY: Set to *yes* to enable Mod_security capability Virtual Host. Default: None
+  * DISABLE_SSLPROXY_CHECKS: Set to *yes* to disable all of the folloing SSL Proxy checks:
+    * PROXY_VERIFY
+    * PROXY_CHECK_PEERCN
+    * PROXY_CHECK_PEERNAME
+    * PROXY_CHECK_PEEREXPIRE
+    * NOTE: the above can individually be set via environment variables
   * LDAP_CACHE_TTL: The LDAP cache timeout.  Default: __60__
   * PROXY_PATH3: The Apache `Location` to configure with OAuth2.0 authentication, which will require a valid Google token to access.  Default: __/register__
 

@@ -134,3 +134,20 @@ fi
 if [ -z "$FILTER3" ] ; then
     export FILTER3=
 fi
+
+if [ "$DISABLE_SSLPROXY_CHECKS" = "yes" ]; then
+   export SSLPROXY_VERIFY="none"
+   export SSLPROXY_CHECK_PEERCN="off"
+   export SSLPROXY_CHECK_PEERNAME="off"
+   export SSLPROXY_CHECK_PEEREXPIRE="off"
+else
+   export SSLPROXY_VERIFY="${SSLPROXY_VERIFY:-require}"
+   export SSLPROXY_CHECK_PEERCN="${SSLPROXY_CHECK_PEERCN:-on}"
+   export SSLPROXY_CHECK_PEERNAME="${SSLPROXY_CHECK_PEERNAME:-on}"
+   export SSLPROXY_CHECK_PEEREXPIRE="${SSLPROXY_CHECK_PEEREXPIRE:-on}"
+fi
+
+# update SSL_LOG_LEVEL
+if [ -z "$SSL_LOG_LEVEL" ] ; then
+    export SSL_LOG_LEVEL=warn
+fi
