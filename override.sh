@@ -127,3 +127,10 @@ fi
 if [ -z "$FILTER3" ] ; then
     export FILTER3=
 fi
+
+# OIDC setting
+
+# update OIDCIntrospectionInterval
+if [ -z "$OIDC_INTRO_INTERVAL" ] ; then
+    export OIDC_INTRO_INTERVAL="OIDCOAuthTokenIntrospectionInterval 60"
+fi
