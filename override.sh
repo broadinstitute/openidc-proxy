@@ -6,6 +6,17 @@
 # Note: This script will be executed *after* the main `run.sh` script, but
 # *before* Apache itself is run.
 
+# Instead setting values via environment variables you can put them in
+# the following file 
+
+# location of environment variable settings
+ENVFILE=${ENVFILE:-"/etc/apache2/env-override"}
+
+# If there is an override script, pull it in
+if [ -f "${ENVFILE}" ]; then
+    . $ENVFILE
+fi
+
 # set ALLOW_HEADERS3
 if [ -z "$ALLOW_HEADERS3" ] ; then
     export ALLOW_HEADERS3=
@@ -103,16 +114,6 @@ if [ -z "$PROXY_URL3" ] ; then
     export PROXY_URL3=http://app:8080/register
 fi
 
-if [ "$ENABLE_STACKDRIVER" = "yes" ]; then
-    /usr/sbin/a2ensite stackdriver
-fi
-
-if [ "$ENABLE_MODSECURITY" = "yes" ]; then
-    /usr/sbin/a2enmod security2
-    /usr/sbin/a2enmod unique_id
-fi
-
-
 # update FILTER
 if [ -z "$FILTER" ] ; then
     export FILTER=
@@ -126,6 +127,25 @@ fi
 # update FILTER3
 if [ -z "$FILTER3" ] ; then
     export FILTER3=
+fi
+
+# ENABLE modules
+
+if [ "$ENABLE_STACKDRIVER" = "yes" ]; then
+    /usr/sbin/a2ensite stackdriver
+fi
+
+if [ "$ENABLE_MODSECURITY" = "yes" ]; then
+    /usr/sbin/a2enmod security2
+    /usr/sbin/a2enmod unique_id
+fi
+
+if [ "$ENABLE_WEBSOCKET" = "yes" ]; then
+    /usr/sbin/a2enmod proxy_wstunnel
+fi
+
+if [ "$ENABLE_REMOTEIP" = "yes" ]; then
+    /usr/sbin/a2enmod remoteip
 fi
 
 # OIDC setting
