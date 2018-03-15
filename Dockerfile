@@ -1,8 +1,6 @@
 FROM broadinstitute/openidc-baseimage:1.8.10.1
 
-# NOTE: when you move to 3.0 or greater you need to change the URL for the package.
-#  curl -L https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${OWASP_VERSION}.tar.gz -o /root/v${OWASP_VERSION}.tar.gz 
-ENV OWASP_VERSION=2.9.1
+ENV OWASP_VERSION=3.0.0
 
 RUN apt-get update && \
     apt-get install libapache2-mod-security2 -y && \
