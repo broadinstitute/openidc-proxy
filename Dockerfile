@@ -1,9 +1,9 @@
 FROM broadinstitute/openidc-baseimage:latest
-
+#FROM broadinstitute/openidc-baseimage:1.8.10.1
 RUN a2enmod authnz_ldap ldap
 
 RUN apt-get update && \
-    apt-get install -qy python  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev && \
+    apt-get install -qy python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev && \
     cd /root && \
     wget https://github.com/SpiderLabs/ModSecurity/releases/download/v2.9.2/modsecurity-2.9.2.tar.gz && \
     tar -xvzf modsecurity-2.9.2.tar.gz && \
