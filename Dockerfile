@@ -1,4 +1,4 @@
-FROM broadinstitute/openidc-baseimage:latest
+FROM broadinstitute/openidc-baseimage:2.3.1
 #FROM broadinstitute/openidc-baseimage:1.8.10.1
 RUN a2enmod authnz_ldap ldap
 
