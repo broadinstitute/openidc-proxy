@@ -1,5 +1,6 @@
-FROM broadinstitute/openidc-baseimage:2.3.1
+#FROM broadinstitute/openidc-baseimage:2.3.1
 #FROM broadinstitute/openidc-baseimage:1.8.10.1
+FROM broadinstitute/openidc-baseimage:bernick_18.04
 RUN a2enmod authnz_ldap ldap
 
 RUN apt-get update && \
@@ -45,4 +46,3 @@ RUN cd /root && \
 
 ADD site.conf stackdriver.conf /etc/apache2/sites-available/
 ADD override.sh /etc/apache2/
-
