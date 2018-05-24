@@ -17,11 +17,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* && \
     rm -rf /var/tmp/*
-
+    
 ADD security2.load /etc/apache2/mods-available/security2.load
 ADD security2.conf /etc/apache2/mods-available/security2.conf
-ADD modsecurity.conf /etc/modsecurity/modsecurity.conf
-ADD unicode.mapping /etc/modsecurity/unicode.mapping
 
 RUN cd /root && \
     wget https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.0.2.tar.gz && \
@@ -40,6 +38,8 @@ RUN cd /root && \
       cp -rfp rulesfinal/* /etc/modsecurity && \
       cp -rfp rules/*.data /etc/modsecurity/
 
+ADD modsecurity.conf /etc/modsecurity/modsecurity.conf
+ADD unicode.mapping /etc/modsecurity/unicode.mapping
 
 ADD site.conf stackdriver.conf /etc/apache2/sites-available/
 ADD override.sh /etc/apache2/
