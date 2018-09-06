@@ -1,4 +1,4 @@
-FROM broadinstitute/openidc-baseimage:bernick_18.04
+FROM broadinstitute/openidc-baseimage:dev
 
 RUN apt-get update && \
     apt-get install -qy python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev && \
