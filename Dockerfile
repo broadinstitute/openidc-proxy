@@ -1,11 +1,12 @@
 FROM broadinstitute/openidc-baseimage:dev
+ENV MOD_SECURITY_VERSION=2.9.2
 
 RUN apt-get update && \
     apt-get install -qy python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev && \
     cd /root && \
-    wget https://github.com/SpiderLabs/ModSecurity/releases/download/v2.9.2/modsecurity-2.9.2.tar.gz && \
-    tar -xvzf modsecurity-2.9.2.tar.gz && \
-    cd modsecurity-2.9.2 && \
+    wget https://github.com/SpiderLabs/ModSecurity/releases/download/v${MOD_SECURITY_VERSION}/modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
+    tar -xvzf modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
+    cd modsecurity-${MOD_SECURITY_VERSION} && \
     ./configure --with-apxs=/usr/bin/apxs && \
     make && \
     make install && \
@@ -17,7 +18,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/* && \
     rm -rf /var/tmp/*
-    
+
 ADD security2.load /etc/apache2/mods-available/security2.load
 ADD security2.conf /etc/apache2/mods-available/security2.conf
 
@@ -43,5 +44,8 @@ ADD unicode.mapping /etc/modsecurity/unicode.mapping
 
 ADD site.conf stackdriver.conf /etc/apache2/sites-available/
 ADD override.sh /etc/apache2/
+
+RUN rm -f /root/modsecurity-${MOD_SECURITY_VERSION}.tar.gz
+RUN rm -f /root/modsecurity-${MOD_SECURITY_VERSION}
 
 RUN a2enmod authnz_ldap
