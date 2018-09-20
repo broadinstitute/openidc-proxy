@@ -1,4 +1,4 @@
-FROM broadinstitute/openidc-baseimage:dev
+FROM broadinstitute/openidc-baseimage:3.0
 ENV MOD_SECURITY_VERSION=2.9.2
 
 RUN apt-get update && \
