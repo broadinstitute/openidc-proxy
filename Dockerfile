@@ -46,6 +46,6 @@ ADD site.conf stackdriver.conf /etc/apache2/sites-available/
 ADD override.sh /etc/apache2/
 
 RUN rm -f /root/modsecurity-${MOD_SECURITY_VERSION}.tar.gz
-RUN rm -f /root/modsecurity-${MOD_SECURITY_VERSION}
+RUN rm -rf /root/modsecurity-${MOD_SECURITY_VERSION}
 
 RUN a2enmod authnz_ldap
