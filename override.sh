@@ -103,6 +103,27 @@ if [ -z "$PROXY_URL3" ] ; then
     export PROXY_URL3=http://app:8080/register
 fi
 
+if [ -z "$APACHE_HTTPD_TIMEOUT" ] ; then
+    export APACHE_HTTPD_TIMEOUT='650'
+fi
+
+if [ -z "$APACHE_HTTPD_KEEPALIVE" ] ; then
+    export APACHE_HTTPD_KEEPALIVE='On'
+fi
+
+if [ -z "$APACHE_HTTPD_KEEPALIVETIMEOUT" ] ; then
+    export APACHE_HTTPD_KEEPALIVETIMEOUT='650'
+fi
+if [ -z "$APACHE_HTTPD_MAXKEEPALIVEREQUESTS" ] ; then
+    export APACHE_HTTPD_MAXKEEPALIVEREQUESTS='500'
+fi
+if [ -z "$APACHE_HTTPD_PROXYTIMEOUT" ] ; then
+    export APACHE_HTTPD_PROXYTIMEOUT='650'
+fi
+if [ -z "$PROXY_TIMEOUT" ] ; then
+    export PROXY_TIMEOUT='650'
+fi
+
 if [ "$ENABLE_STACKDRIVER" = "yes" ]; then
     /usr/sbin/a2ensite stackdriver
 fi
