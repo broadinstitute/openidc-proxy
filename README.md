@@ -1,5 +1,8 @@
-openidc-proxy
-=================
+# openidc-proxy
+
+[![Docker Hub](https://img.shields.io/docker/pulls/broadinstitute/openidc-proxy.svg)](https://hub.docker.com/r/broadinstitute/openidc-proxy/)
+[![Docker Hub](https://img.shields.io/docker/build/broadinstitute/openidc-proxy.svg)](https://hub.docker.com/r/broadinstitute/openidc-proxy/)
+[![Docker Repository on Quay](https://quay.io/repository/broadinstitute/openidc-proxy/status "Docker Repository on Quay")](https://quay.io/repository/broadinstitute/openidc-proxy)
 
 This container images extends [OpenIDC BaseImage][1] and adds several features:
 
