@@ -52,7 +52,7 @@ RUN cd /root && wget https://static.tcell.io/downloads/apacheagent/apache24_tcel
     tar -xzf apache24_tcellagent-1.2.1-linux-x86_64.tgz && \
     mkdir /etc/apache2/modules && \
     cp -rfp apache_tcellagent-1.2.1-linux-x86_64/ubuntu/mod_agenttcell.so /etc/apache2/modules/mod_agenttcell.so && \
-    chown -R apache2:apache2 /var/log/apache2 && chmod -R 777 /var/log/apache2
+    chown -R www-data:www-data /var/log/apache2 && chmod -R 777 /var/log/apache2
 
 COPY tcell.load /etc/apache2/mods-available/tcell.load
 RUN a2enmod tcell
