@@ -133,6 +133,10 @@ if [ "$ENABLE_MODSECURITY" = "yes" ]; then
     /usr/sbin/a2enmod unique_id
 fi
 
+if [ "$ENABLE_TCELL" = "yes" ]; then
+    /usr/sbin/a2enmod tcell
+fi
+
 
 # update FILTER
 if [ -z "$FILTER" ] ; then

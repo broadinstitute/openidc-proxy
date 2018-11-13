@@ -55,5 +55,4 @@ RUN cd /root && wget https://static.tcell.io/downloads/apacheagent/apache24_tcel
     chown -R www-data:www-data /var/log/apache2 && chmod -R 777 /var/log/apache2
 
 COPY tcell.load /etc/apache2/mods-available/tcell.load
-RUN a2enmod tcell
 RUN a2enmod authnz_ldap
