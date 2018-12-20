@@ -133,6 +133,10 @@ if [ "$ENABLE_MODSECURITY" = "yes" ]; then
     /usr/sbin/a2enmod unique_id
 fi
 
+# update OIDCIntrospectionInterval
+if [ -z "$OIDC_INTRO_INTERVAL" ] ; then
+    export OIDC_INTRO_INTERVAL="OIDCOAuthTokenIntrospectionInterval 60"
+fi
 
 # update FILTER
 if [ -z "$FILTER" ] ; then
