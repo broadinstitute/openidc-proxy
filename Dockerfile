@@ -48,10 +48,10 @@ COPY override.sh /etc/apache2/
 RUN rm -f /root/modsecurity-${MOD_SECURITY_VERSION}.tar.gz
 RUN rm -rf /root/modsecurity-${MOD_SECURITY_VERSION}
 
-RUN cd /root && wget https://static.tcell.io/downloads/apacheagent/apache24_tcellagent-1.2.1-linux-x86_64.tgz && \ 
-    tar -xzf apache24_tcellagent-1.2.1-linux-x86_64.tgz && \
+RUN cd /root && wget https://static.tcell.io/downloads/apacheagent/apache24_tcellagent-2.0.2-linux-x86_64.tgz && \ 
+    tar -xzf apache24_tcellagent-2.0.2-linux-x86_64.tgz && \
     mkdir /etc/apache2/modules && \
-    cp -rfp apache_tcellagent-1.2.1-linux-x86_64/ubuntu/mod_agenttcell.so /etc/apache2/modules/mod_agenttcell.so && \
+    cp -rfp apache_tcellagent-2.0.2-linux-x86_64/ubuntu/mod_agenttcell.so /etc/apache2/modules/mod_agenttcell.so && \
     chown -R www-data:www-data /var/log/apache2 && chmod -R 777 /var/log/apache2
 
 COPY tcell.load /etc/apache2/mods-available/tcell.load
