@@ -1,31 +1,34 @@
-FROM broadinstitute/openidc-baseimage:3.0
-ENV MOD_SECURITY_VERSION=2.9.2
+FROM broadinstitute/openidc-baseimage:2.3.11-20190820
+
+ENV MODSEC_VERSION=2.9.3 \
+    OWASP_VERSION=3.1.1
+
+COPY override.sh /etc/apache2/
+COPY site.conf /etc/apache2/sites-available/
+COPY mod_security/security2.load mod_security/security2.conf /etc/apache2/mods-available/
 
 RUN apt-get update && \
-    apt-get install -qy libyajl-dev python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev && \
-    cd /root && \
-    wget https://github.com/SpiderLabs/ModSecurity/releases/download/v${MOD_SECURITY_VERSION}/modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
-    tar -xvzf modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
-    cd modsecurity-${MOD_SECURITY_VERSION} && \
+    apt-get upgrade -qy && \
+    apt-get install -qy --no-install-recommends apache2-dev libyajl-dev libpcre3 libpcre3-dev libxml2-dev lua5.1 lua5.1-dev python wget && \
+    a2enmod authnz_ldap && \
+    curl -L -o "/tmp/modsecurity-${MODSEC_VERSION}.tar.gz" "https://github.com/SpiderLabs/ModSecurity/releases/download/v${MODSEC_VERSION}/modsecurity-${MODSEC_VERSION}.tar.gz" && \
+    curl -L -o "/tmp/modsecurity-${MODSEC_VERSION}.tar.gz.sha256" "https://github.com/SpiderLabs/ModSecurity/releases/download/v${MODSEC_VERSION}/modsecurity-${MODSEC_VERSION}.tar.gz.sha256" && \
+    cd /tmp && \
+    sha256sum -c "modsecurity-${MODSEC_VERSION}.tar.gz.sha256" && \
+    tar -xvzf "modsecurity-${MODSEC_VERSION}.tar.gz" && \
+    cd "modsecurity-${MODSEC_VERSION}" && \
     ./configure --with-apxs=/usr/bin/apxs && \
     make && \
     make install && \
     mkdir -p /var/cache/modsecurity && \
     chmod -R 777 /var/cache/modsecurity && \
     mkdir -p /etc/modsecurity && \
-    apt-get -yq autoremove && \
-    apt-get -yq clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /tmp/* && \
-    rm -rf /var/tmp/*
-
-COPY security2.load /etc/apache2/mods-available/security2.load
-COPY security2.conf /etc/apache2/mods-available/security2.conf
-
-RUN cd /root && \
-    wget https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.0.2.tar.gz && \
-    tar -xvzf v3.0.2.tar.gz && \
-    cd owasp-modsecurity-crs-3.0.2 && \
+    mkdir -p /usr/share/modsecurity/rules && \
+    curl -L -o "/tmp/v${OWASP_VERSION}.tar.gz" "https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v${OWASP_VERSION}.tar.gz" && \
+    cd /tmp && \
+    tar -xvzf "v${OWASP_VERSION}.tar.gz" && \
+    cd "owasp-modsecurity-crs-${OWASP_VERSION}" && \
+    cp -rfp rules/* /usr/share/modsecurity/rules && \
     mkdir rulesworking && \
     mkdir rulesfinal && \
     cp -rfp rules/REQUEST-921-PROTOCOL-ATTACK.conf \
@@ -35,17 +38,13 @@ RUN cd /root && \
       rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf \
       rules/REQUEST-942-APPLICATION-ATTACK-SQLI.conf \
       rules/RESPONSE-951-DATA-LEAKAGES-SQL.conf rulesworking/ && \
-      util/join-multiline-rules/join.py rulesworking/*.conf > rulesfinal/rules.conf && \
-      cp -rfp rulesfinal/* /etc/modsecurity && \
-      cp -rfp rules/*.data /etc/modsecurity/
+    util/join-multiline-rules/join.py rulesworking/*.conf > rulesfinal/rules.conf && \
+    cp -rfp rulesfinal/* /etc/modsecurity && \
+    cp -rfp rules/*.data /etc/modsecurity/ && \
+    apt-get -yq autoremove && \
+    apt-get -yq clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/* && \
+    rm -rf /var/tmp/*
 
-COPY modsecurity.conf /etc/modsecurity/modsecurity.conf
-COPY unicode.mapping /etc/modsecurity/unicode.mapping
-
-COPY site.conf stackdriver.conf /etc/apache2/sites-available/
-COPY override.sh /etc/apache2/
-
-RUN rm -f /root/modsecurity-${MOD_SECURITY_VERSION}.tar.gz
-RUN rm -rf /root/modsecurity-${MOD_SECURITY_VERSION}
-
-RUN a2enmod authnz_ldap
+COPY mod_security/modsecurity.conf mod_security/unicode.mapping /etc/modsecurity/
