@@ -43,6 +43,7 @@ COPY modsecurity.conf /etc/modsecurity/modsecurity.conf
 COPY unicode.mapping /etc/modsecurity/unicode.mapping
 
 COPY site.conf stackdriver.conf /etc/apache2/sites-available/
+COPY mpm_event.conf /etc/apache2/conf-enabled/
 COPY override.sh /etc/apache2/
 
 RUN rm -f /root/modsecurity-${MOD_SECURITY_VERSION}.tar.gz
