@@ -2,7 +2,7 @@ FROM broadinstitute/openidc-baseimage:3.0
 ENV MOD_SECURITY_VERSION=2.9.2
 
 RUN apt-get update && \
-    apt-get install -qy libyajl-dev python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev && \
+    apt-get install -qy libyajl-dev python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev libaprutil1-dbd-pgsql && \
     cd /root && \
     wget https://github.com/SpiderLabs/ModSecurity/releases/download/v${MOD_SECURITY_VERSION}/modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
     tar -xvzf modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
@@ -56,4 +56,4 @@ RUN cd /root && wget https://static.tcell.io/downloads/apacheagent/apache24_tcel
     chown -R www-data:www-data /var/log/apache2 && chmod -R 777 /var/log/apache2
 
 COPY tcell.load /etc/apache2/mods-available/tcell.load
-RUN a2enmod authnz_ldap
+RUN a2enmod authz_dbd
