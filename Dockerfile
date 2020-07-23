@@ -49,7 +49,7 @@ COPY override.sh /etc/apache2/
 RUN rm -f /root/modsecurity-${MOD_SECURITY_VERSION}.tar.gz
 RUN rm -rf /root/modsecurity-${MOD_SECURITY_VERSION}
 
-RUN cd /root && wget https://us.static.tcell.insight.rapid7.com/downloads/apacheagent/apache24_tcellagent-3.1.0-linux-x86_64.tgz && \ 
+RUN cd /root && wget https://us.static.tcell.insight.rapid7.com/downloads/apacheagent/apache24_tcellagent-3.1.0-linux-x86_64.tgz && \
     tar -xzf apache24_tcellagent-3.1.0-linux-x86_64.tgz && \
     mkdir /etc/apache2/modules && \
     cp -rfp apache_tcellagent-3.1.0-linux-x86_64/ubuntu/mod_agenttcell.so /etc/apache2/modules/mod_agenttcell.so && \
