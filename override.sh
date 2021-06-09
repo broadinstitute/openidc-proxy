@@ -25,7 +25,7 @@ fi
 
 # update AUTH_TYPE3
 if [ -z "$AUTH_TYPE3" ] ; then
-    export AUTH_TYPE3='AuthType oauth20'
+    export AUTH_TYPE3='AuthType oauth2'
 fi
 
 # update AUTH_LDAP_BIND_DN

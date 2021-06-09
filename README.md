@@ -12,7 +12,7 @@ This container images extends [OpenIDC BaseImage][1] and adds several features:
   * ALLOW_HEADERS3: The CORS headers to allow for *PROXY_PATH3*.  Default:  None
   * ALLOW_METHODS3: The CORS methods to allow for *PROXY_PATH3*.  Default:  None
   * AUTH_REQUIRE3: An OIDC claim to restrict access on *PROXY_PATH3*.  Default: __Require valid-user__
-  * AUTH_TYPE3: The AuthType to use for *PROXY_PATH3*.  Default: __AuthType oauth20__
+  * AUTH_TYPE3: The AuthType to use for *PROXY_PATH3*.  Default: __AuthType oauth2__
   * AUTH_LDAP_BIND_DN: The AuthLDAPBindDN to use for *PROXY_PATH*.  Default: None
   * AUTH_LDAP_BIND_DN2: The AuthLDAPBindDN to use for *PROXY_PATH2*.  Default: None
   * AUTH_LDAP_BIND_DN3: The AuthLDAPBindDN to use for *PROXY_PATH3*.  Default: None
