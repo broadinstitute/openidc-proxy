@@ -1,7 +1,7 @@
 FROM broadinstitute/openidc-baseimage:3.0
 ENV MOD_SECURITY_VERSION=2.9.2
 
-RUN apt-get update && \
+RUN apt-get update && apt-get upgrade -yq && \
     apt-get install -qy libyajl-dev python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev && \
     cd /root && \
     wget https://github.com/SpiderLabs/ModSecurity/releases/download/v${MOD_SECURITY_VERSION}/modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
