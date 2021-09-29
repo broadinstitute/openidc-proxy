@@ -1,0 +1,1 @@
+LoadModule php4_module modules/mod_php.so

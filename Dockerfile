@@ -2,7 +2,7 @@ FROM oauth2-baseimage
 ENV MOD_SECURITY_VERSION=2.9.2
 
 RUN apt-get update && \
-    apt-get install -qy libyajl-dev python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev && \
+    apt-get install -qy libyajl-dev python libpcre3 libpcre3-dev  git  apache2-dev wget libxml2-dev lua5.1 lua5.1-dev php libapache2-mod-php php-curl && \
     cd /root && \
     wget https://github.com/SpiderLabs/ModSecurity/releases/download/v${MOD_SECURITY_VERSION}/modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
     tar -xvzf modsecurity-${MOD_SECURITY_VERSION}.tar.gz && \
@@ -21,6 +21,9 @@ RUN apt-get update && \
 
 COPY security2.load /etc/apache2/mods-available/security2.load
 COPY security2.conf /etc/apache2/mods-available/security2.conf
+
+COPY php.load /etc/apache2/mods-available/php.load
+COPY php.conf /etc/apache2/mods-available/php.conf
 
 RUN cd /root && \
     wget https://github.com/SpiderLabs/owasp-modsecurity-crs/archive/v3.0.2.tar.gz && \
@@ -50,3 +53,4 @@ RUN rm -rf /root/modsecurity-${MOD_SECURITY_VERSION}
 
 RUN chown -R www-data:www-data /var/log/apache2 && chmod -R 777 /var/log/apache2
 RUN a2enmod authnz_ldap
+COPY introspect.php /app/introspect/index.php
