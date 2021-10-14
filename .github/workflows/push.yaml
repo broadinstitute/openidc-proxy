@@ -54,7 +54,7 @@ jobs:
           service_account_email: ${{ secrets.GCR_PUBLISH_EMAIL }}
           service_account_key: ${{ secrets.GCR_PUBLISH_KEY_B64 }}
 
-      - name: Explicitly auth Docker for Artifact Registry
+      - name: Explicitly auth Docker for GCR
         run: gcloud auth configure-docker $GOOGLE_DOCKER_REPOSITORY --quiet
 
       - name: Construct docker image name and tag
