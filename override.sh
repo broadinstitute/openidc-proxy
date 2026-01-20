@@ -151,3 +151,8 @@ fi
 if [ -z "$FILTER3" ] ; then
     export FILTER3=
 fi
+
+# update SSL_LOG_LEVEL
+if [ -z "$SSL_LOG_LEVEL" ] ; then
+    export SSL_LOG_LEVEL=warn
+fi
